@@ -18,7 +18,7 @@ public class MapSchema<T> extends BaseSchema<Map> {
         return this;
     }
 
-    public <V> MapSchema<T> shape(Map<String, BaseSchema<V>> schemas) {
+    public <V> MapSchema<T> shape(Map<T, BaseSchema<V>> schemas) {
         Predicate<Map> lambda = x -> {
             for (var key : schemas.keySet()) {
                 if (!schemas.get(key).isValid((V) x.get(key))) {
