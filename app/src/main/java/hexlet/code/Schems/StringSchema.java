@@ -1,16 +1,10 @@
-package hexlet.code;
+package hexlet.code.Schems;
 
-public class StringSchema {
-    private boolean flagRequired = false;
+public class StringSchema extends BaseSchema {
     private int flagMinLength;
     private String flagContains;
 
     public StringSchema() {
-    }
-
-    public StringSchema required() {
-        this.flagRequired = true;
-        return this;
     }
 
     public StringSchema minLength(int length) {
@@ -24,7 +18,7 @@ public class StringSchema {
     }
 
     public boolean isValid(String data) {
-        if (flagRequired && (data == null || data.isEmpty())) {
+        if (!super.isValid(data)) {
             return false;
         }
         if (data != null && flagMinLength > data.length()) {
