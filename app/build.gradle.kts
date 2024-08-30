@@ -21,7 +21,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("hexlet.code.App")
+    mainClass.set("hexlet.code.Validator")
 }
 
 tasks.test {
