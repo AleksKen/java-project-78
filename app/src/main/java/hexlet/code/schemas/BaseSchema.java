@@ -1,18 +1,22 @@
 package hexlet.code.schemas;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+
 public class BaseSchema<T> {
-    private boolean flagRequired = false;
-
-    public BaseSchema<T> required() {
-        this.flagRequired = true;
-        return this;
-    }
-
-    private boolean checkRequired(T data) {
-        return !flagRequired || (data != null && !data.equals(""));
-    }
+    protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
     public boolean isValid(T data) {
-        return checkRequired(data);
+        if (checks.isEmpty()) {
+            return true;
+        }
+
+        for (var lambda : checks.values()) {
+            if (!lambda.test(data)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

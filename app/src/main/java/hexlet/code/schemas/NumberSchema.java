@@ -1,31 +1,25 @@
 package hexlet.code.schemas;
 
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 public class NumberSchema extends BaseSchema {
-    private boolean flagPositive = false;
-    private Pair<Integer, Integer> flagRange = Pair.of(null, null);
 
-    public NumberSchema() {
+    public NumberSchema required() {
+        Predicate<Integer> lambda = Objects::nonNull;
+        checks.put("required", lambda);
+        return this;
     }
 
     public NumberSchema positive() {
-        this.flagPositive = true;
+        Predicate<Integer> lambda = x -> x == null || x > 0;
+        checks.put("positive", lambda);
         return this;
     }
 
     public NumberSchema range(int left, int right) {
-        flagRange = Pair.of(left, right);
+        Predicate<Integer> lambda = x -> x >= left && x <= right;
+        checks.put("range", lambda);
         return this;
-    }
-
-    public boolean isValid(Integer data) {
-        if (!super.isValid(data)) {
-            return false;
-        }
-        if (flagPositive && data != null && data <= 0) {
-            return false;
-        }
-        return flagRange.getLeft() == null || (flagRange.getLeft() <= data && flagRange.getRight() >= data);
     }
 }

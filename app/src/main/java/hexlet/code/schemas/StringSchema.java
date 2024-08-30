@@ -1,29 +1,24 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema {
-    private int flagMinLength;
-    private String flagContains;
+import java.util.function.Predicate;
 
-    public StringSchema() {
+public class StringSchema extends BaseSchema {
+
+    public StringSchema required() {
+        Predicate<String> lambda = x -> x != null && !x.isEmpty();
+        checks.put("required", lambda);
+        return this;
     }
 
     public StringSchema minLength(int length) {
-        this.flagMinLength = length;
+        Predicate<String> lambda = x -> x == null || x.length() >= length;
+        checks.put("minLength", lambda);
         return this;
     }
 
     public StringSchema contains(String subStr) {
-        this.flagContains = subStr;
+        Predicate<String> lambda = x -> x == null || x.contains(subStr);
+        checks.put("contains", lambda);
         return this;
-    }
-
-    public boolean isValid(String data) {
-        if (!super.isValid(data)) {
-            return false;
-        }
-        if (data != null && flagMinLength > data.length()) {
-            return false;
-        }
-        return flagContains == null || data.contains(flagContains);
     }
 }
