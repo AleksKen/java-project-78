@@ -1,4 +1,4 @@
-package hexlet.code.Schems;
+package hexlet.code.schemas;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -26,9 +26,6 @@ public class NumberSchema extends BaseSchema {
         if (flagPositive && data != null && data <= 0) {
             return false;
         }
-        if (flagRange.getLeft() != null && (flagRange.getLeft() > data || flagRange.getRight() < data)) {
-            return false;
-        }
-        return true;
+        return flagRange.getLeft() == null || (flagRange.getLeft() <= data && flagRange.getRight() >= data);
     }
 }

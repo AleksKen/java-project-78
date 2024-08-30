@@ -1,4 +1,4 @@
-package hexlet.code.Schems;
+package hexlet.code.schemas;
 
 public class StringSchema extends BaseSchema {
     private int flagMinLength;
@@ -24,9 +24,6 @@ public class StringSchema extends BaseSchema {
         if (data != null && flagMinLength > data.length()) {
             return false;
         }
-        if (flagContains != null && !data.contains(flagContains)) {
-            return false;
-        }
-        return true;
+        return flagContains == null || data.contains(flagContains);
     }
 }

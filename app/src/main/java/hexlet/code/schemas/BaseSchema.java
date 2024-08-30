@@ -1,4 +1,4 @@
-package hexlet.code.Schems;
+package hexlet.code.schemas;
 
 public class BaseSchema<T> {
     private boolean flagRequired = false;
